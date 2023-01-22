@@ -6,8 +6,7 @@
 .todoItemBox {
   position: relative;
   justify-content: center;
-  margin-top: 1.5rem;
-  width: 24rem;
+  width: 100%;
 }
 
 .todoItemFill {
@@ -16,9 +15,8 @@
   padding-right: 2rem; /* 32px */
   padding-top: 2rem; /* 32px */
   padding-bottom: 1.5rem; /* 24px */
-  border-radius: 0.375rem; /* 6px */
   color: rgb(107 114 128);
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0), 0 4px 6px -4px rgb(0 0 0);
   /* translated from tailwind: bg-white px-8 pt-8 pb-6 rounded-md text-gray-500 shadow-lg */
 }
 
@@ -26,13 +24,18 @@
   position: absolute;
   display: flex;
   top: 1.25rem; /* 20px */
-  right: 0;
+  right: 0.75rem;
   padding: 0.75rem; /* 12px */
   margin-left: 0.5rem; /* 8px */
   /* translated from tailwind: absolute flex top-5 right-0 p-3 space-x-2 */
 }
 
 .icon {
-    color: rgb(239 68 68);
-    cursor: pointer;
+  color: rgb(239 68 68);
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
 }

@@ -41,7 +41,7 @@ const TodoItem = ({ todo, onDeleteTodo }) => {
                 type="checkbox"
                 checked={isCompleted}
                 onChange={onUpdateTodo}
-                className="h-4 w-4"
+                className={styles.checkbox}
               />
               <span className="pl-3">{todo.title}</span>
             </div>

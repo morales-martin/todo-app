@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./CreateTodo.module.css";
 
 const CreateTodo = ({ onCreateTodo }) => {
   const [todoItem, setTodoItem] = useState("");
@@ -16,14 +17,14 @@ const CreateTodo = ({ onCreateTodo }) => {
 
   return (
     <>
-      <form className="flex justify-center mt-10">
-        <div className="bg-yellow-300 px-4 py-2 rounded-lg w-96">
-          <h1 className="text-center mt-4 mb-4 text-2xl text-white font-bold">
+      <form className={styles.formContainer}>
+        <div className={styles.formFill}>
+          <h1 className={styles.title}>
             TodoList
           </h1>
-          <div className="mt-6 flex space-x-4 m-10 justify-center">
+          <div className={styles.inputContainer}>
             <input
-              className="bg-gray-100 rounded-md py-2 px-4 border-2 outline-none"
+              className={styles.input}
               id="todo"
               name="todo"
               value={todoItem}
@@ -31,7 +32,7 @@ const CreateTodo = ({ onCreateTodo }) => {
               onChange={onInputChange}
             />
             <button
-              className="bg-black text-white px-4 rounded-md font-semibold"
+              className={styles.button}
               onClick={onSubmit}
             >
               <i className="fa-solid fa-plus"></i>
