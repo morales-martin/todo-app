@@ -28,15 +28,9 @@ const CreateTodo = ({ onCreateTodo }) => {
               id="todo"
               name="todo"
               value={todoItem}
-              placeholder="Create a new Todo"
+              placeholder="What needs to be done?"
               onChange={onInputChange}
             />
-            <button
-              className={styles.button}
-              onClick={onSubmit}
-            >
-              <i className="fa-solid fa-plus"></i>
-            </button>
           </div>
         </div>
       </form>

@@ -1,16 +1,12 @@
 .formContainer {
   display: flex;
-  margin-top: 2.5rem;
-  justify-content: center;
+  height: 20%;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.096), 0 4px 6px -4px rgb(0, 0, 0, 0.096);
+  z-index: 1;
 }
 
 .formFill {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
   width: 24rem;
-  border-radius: 0.5rem;
 }
 
 .title {
@@ -32,21 +28,6 @@
 }
 
 .input {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  background-color: #f3f4f6;
-  border-radius: 0.375rem;
-  border-width: 2px;
+  background-color: white;
   outline: 0;
-}
-
-.button {
-  padding-left: 1rem;
-  padding-right: 1rem;
-  background-color: #000000;
-  color: #ffffff;
-  font-weight: 600;
-  border-radius: 0.375rem;
 }
