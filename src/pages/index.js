@@ -1,5 +1,6 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
 import CreateTodo from "../components/CreateTodo";
 import Todo from "../components/Todos";
 

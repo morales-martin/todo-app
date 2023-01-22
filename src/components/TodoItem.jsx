@@ -2,33 +2,35 @@ import React, { useState } from "react";
 import { API } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 
+import styles from './TodoItem.module.css';
+
 const TodoItem = ({ todo, onDeleteTodo }) => {
   const [isCompleted, setIsCompleted] = useState(todo.completed);
 
   const onUpdateTodo = async (event) => {
     setIsCompleted(event.target.checked);
 
-    const input = { id: todo.id, completed: event.target.checked };
+    const todoInput = { id: todo.id, completed: event.target.checked };
 
     try {
       await API.graphql({
         query: mutations.updateTodo,
         variables: {
-          input: { input },
+          input: { ...todoInput },
         },
       });
 
       console.log("Todo successfully updated!");
     } catch (err) {
-      console.log(`Error: ${err}`);
+      console.log(`Error: ${JSON.stringify(err)}`);
     }
   };
 
   return (
     <>
-      <div className="flex justify-center">
-        <div className=" relative justify-center mt-6 w-96">
-          <div className="bg-white px-8 pt-8 pb-6 rounded-md text-gray-500 shadow-lg">
+      <div className={styles.todoItemContainer}>
+        <div className={styles.todoItemBox}>
+          <div className={styles.todoItemFill}>
             <div
               key={todo.id}
               style={{
@@ -44,9 +46,9 @@ const TodoItem = ({ todo, onDeleteTodo }) => {
               <span className="pl-3">{todo.title}</span>
             </div>
           </div>
-          <div className="absolute flex top-5 right-0 p-3 space-x-2">
+          <div className={styles.iconContainer}>
             <span
-              className="text-red-500 cursor-pointer"
+              className={styles.icon}
               onClick={() => onDeleteTodo(todo.id)}
             >
               <i className="fa-solid fa-trash"></i>
