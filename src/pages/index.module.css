@@ -1,15 +1,26 @@
 .pageContainer {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
 }
 
 .contentContainer {
-    width:60rem;
-    height: 40rem;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    background-color: white;
+  width: 60rem;
+  height: 40rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  background-color: white;
+}
+
+.title {
+  color: rgb(107 114 128);
+  font-size: 3rem;
+  line-height: 4rem;
+  font-weight: 500;
+  text-align: center;
+  display: flex;
+  margin: 0 auto;
 }

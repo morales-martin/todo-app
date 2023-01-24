@@ -19,9 +19,6 @@ const CreateTodo = ({ onCreateTodo }) => {
     <>
       <form className={styles.formContainer}>
         <div className={styles.formFill}>
-          <h1 className={styles.title}>
-            TodoList
-          </h1>
           <div className={styles.inputContainer}>
             <input
               className={styles.input}

@@ -4,11 +4,11 @@ import * as mutations from "../graphql/mutations";
 
 import styles from './TodoItem.module.css';
 
-const TodoItem = ({ todo, onDeleteTodo }) => {
+const TodoItem = ({ todo }) => {
   const [isCompleted, setIsCompleted] = useState(todo.completed);
 
   const onUpdateTodo = async (event) => {
-    setIsCompleted(event.target.checked);
+    setIsCompleted(!isCompleted);
 
     const todoInput = { id: todo.id, completed: event.target.checked };
 
@@ -30,7 +30,7 @@ const TodoItem = ({ todo, onDeleteTodo }) => {
     <>
       <div className={styles.todoItemContainer}>
         <div className={styles.todoItemBox}>
-          <div className={styles.todoItemFill}>
+          <div className={styles.todoItemFill} onClick={onUpdateTodo}>
             <div
               key={todo.id}
               style={{
@@ -45,14 +45,6 @@ const TodoItem = ({ todo, onDeleteTodo }) => {
               />
               <span className="pl-3">{todo.title}</span>
             </div>
-          </div>
-          <div className={styles.iconContainer}>
-            <span
-              className={styles.icon}
-              onClick={() => onDeleteTodo(todo.id)}
-            >
-              <i className="fa-solid fa-trash"></i>
-            </span>
           </div>
         </div>
       </div>

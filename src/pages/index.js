@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import CreateTodo from "../components/CreateTodo";
 import Todo from "../components/Todos";
+import ToolOptions from '../components/ToolOptions';
 import styles from "./index.module.css";
 
 import { Amplify, API } from "aws-amplify";
@@ -94,9 +95,11 @@ export default function Home({ todos }) {
       </Head>
       <main>
         <div className={styles.pageContainer}>
+          <h1 className={styles.title}>Todo List</h1>
           <div className={styles.contentContainer}>
             <CreateTodo onCreateTodo={onCreateTodo}></CreateTodo>
-            <Todo todoList={todoList} onDeleteTodo={onDeleteTodo} />
+            <Todo todoList={todoList}/>
+            <ToolOptions todoList={todoList} onDeleteTodo={onDeleteTodo} />
           </div>
         </div>
       </main>

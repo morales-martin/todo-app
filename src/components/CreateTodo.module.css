@@ -6,28 +6,20 @@
 }
 
 .formFill {
-  width: 24rem;
-}
-
-.title {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  color: #ffffff;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 700;
-  text-align: center;
+  /* width: 24rem; */
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
 }
 
 .inputContainer {
   display: flex;
-  margin: 2.5rem;
-  margin-top: 1.5rem;
-  margin-left: 1rem;
-  justify-content: center;
+  margin: 0 1rem;
+  width: 100%;
 }
 
 .input {
-  background-color: white;
   outline: 0;
+  width: 100%;
+  background-color: white;
 }

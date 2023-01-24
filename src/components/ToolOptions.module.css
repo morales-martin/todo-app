@@ -1,0 +1,23 @@
+.optionsContainer {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  height: 4rem;
+  border-top: 1px solid rgb(107, 114, 128, 0.096);
+}
+
+.filterBar {
+  margin: auto;
+}
+
+.deleteContainer {
+  position: absolute;
+  right: 2rem;
+  top:25%;
+  height: 100%;
+}
+
+.icon {
+    color: rgb(239 68 68);
+    cursor: pointer;
+  }

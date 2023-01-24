@@ -29,11 +29,6 @@
   margin-left: 0.5rem; /* 8px */
 }
 
-.icon {
-  color: rgb(239 68 68);
-  cursor: pointer;
-}
-
 .checkbox {
   width: 1rem;
   height: 1rem;
