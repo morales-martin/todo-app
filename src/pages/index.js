@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import CreateTodo from "../components/CreateTodo";
 import Todo from "../components/Todos";
-import ToolOptions from '../components/ToolOptions';
+import ToolOptions from "../components/ToolOptions";
 import styles from "./index.module.css";
 
 import { Amplify, API } from "aws-amplify";
@@ -67,21 +67,21 @@ export default function Home({ todos }) {
     }
   };
 
-  const onDeleteTodo = async (id) => {
+  const onDeleteTodos = async (idList) => {
     // delete todo from backend
     try {
       await API.graphql({
-        query: mutations.deleteTodo,
-        variables: { input: { id } },
+        query: mutations.batchDelete,
+        variables: { ids: idList },
       });
 
       // updating todo state
-      const filterTodo = todoList.filter((todo) => todo.id !== id);
+      const filterTodo = todoList.filter((todo) => !idList.includes(todo.id));
       setTodoList(filterTodo);
 
-      console.log("Successfully deleted a todo!");
+      console.log("Successfully deleted todos!");
     } catch (err) {
-      console.log(`Error: ${err.message}`);
+      console.log(`Error: ${JSON.stringify(err)}`);
     }
   };
 
@@ -98,8 +98,8 @@ export default function Home({ todos }) {
           <h1 className={styles.title}>Todo List</h1>
           <div className={styles.contentContainer}>
             <CreateTodo onCreateTodo={onCreateTodo}></CreateTodo>
-            <Todo todoList={todoList}/>
-            <ToolOptions todoList={todoList} onDeleteTodo={onDeleteTodo} />
+            <Todo todoList={todoList} />
+            <ToolOptions todoList={todoList} onDeleteTodo={onDeleteTodos} />
           </div>
         </div>
       </main>

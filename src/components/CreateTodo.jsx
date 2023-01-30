@@ -17,7 +17,7 @@ const CreateTodo = ({ onCreateTodo }) => {
 
   return (
     <>
-      <form className={styles.formContainer}>
+      <form className={styles.formContainer} onSubmit={onSubmit}>
         <div className={styles.formFill}>
           <div className={styles.inputContainer}>
             <input

@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { API } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 
-import styles from './TodoItem.module.css';
+import styles from "./TodoItem.module.css";
 
 const TodoItem = ({ todo }) => {
   const [isCompleted, setIsCompleted] = useState(todo.completed);
 
   const onUpdateTodo = async (event) => {
-    setIsCompleted(!isCompleted);
+    let newCompleteValue = !isCompleted;
+    setIsCompleted(newCompleteValue);
+    todo.completed = newCompleteValue;
 
-    const todoInput = { id: todo.id, completed: event.target.checked };
+    const todoInput = { id: todo.id, completed: newCompleteValue };
 
     try {
       await API.graphql({
@@ -20,6 +22,7 @@ const TodoItem = ({ todo }) => {
         },
       });
 
+      console.log(todoInput);
       console.log("Todo successfully updated!");
     } catch (err) {
       console.log(`Error: ${JSON.stringify(err)}`);

@@ -7,3 +7,7 @@ type Todo @model {
   title: String!
   completed: Boolean!
 }
+
+type Mutation {
+  batchDelete(ids: [ID]): [Todo]
+}

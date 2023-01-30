@@ -1,6 +1,13 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const batchDelete = /* GraphQL */ `
+  mutation BatchDelete($ids: [ID]) {
+    batchDelete(ids: $ids) {
+      id
+    }
+  }
+`;
 export const createTodo = /* GraphQL */ `
   mutation CreateTodo(
     $input: CreateTodoInput!
