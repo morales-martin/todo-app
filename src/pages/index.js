@@ -75,11 +75,43 @@ export default function Home({ todos }) {
         variables: { ids: idList },
       });
 
+      let idSet = new Set(idList);
       // updating todo state
-      const filterTodo = todoList.filter((todo) => !idList.includes(todo.id));
+      const filterTodo = todoList.filter((todo) => !idSet.has(todo.id));
       setTodoList(filterTodo);
 
       console.log("Successfully deleted todos!");
+    } catch (err) {
+      console.log(`Error: ${JSON.stringify(err)}`);
+    }
+  };
+
+  const onFilterTodos = async (tag) => {
+    try {
+      const todoData = await API.graphql({
+        query: queries.listTodos,
+      });
+
+      let filter;
+
+      switch (tag) {
+        case "todo":
+          filter = todoData.data.listTodos.items.filter(
+            (todo) => todo.completed === false
+          );
+          break;
+        case "completed":
+          filter = todoData.data.listTodos.items.filter(
+            (todo) => todo.completed === true
+          );
+          break;
+        default:
+          filter = todoData.data.listTodos.items;
+      }
+      
+      setTodoList(filter);
+
+      console.log("successfully filtered todos!");
     } catch (err) {
       console.log(`Error: ${JSON.stringify(err)}`);
     }
@@ -99,7 +131,11 @@ export default function Home({ todos }) {
           <div className={styles.contentContainer}>
             <CreateTodo onCreateTodo={onCreateTodo}></CreateTodo>
             <Todo todoList={todoList} />
-            <ToolOptions todoList={todoList} onDeleteTodo={onDeleteTodos} />
+            <ToolOptions
+              todoList={todoList}
+              onFilterTodos={onFilterTodos}
+              onDeleteTodos={onDeleteTodos}
+            />
           </div>
         </div>
       </main>
