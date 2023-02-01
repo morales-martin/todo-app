@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./ToolOptions.module.css";
 import ToggleButtons from "../UI/ToggleButtons";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const ToolOptions = ({ todoList, onFilterTodos, onDeleteTodos }) => {
-  const [filterStates, setFilterStates] = useState([
-    "all",
-    "todo",
-    "completed",
-  ]);
-
   const deleteTodos = async () => {
     onDeleteTodos(
       todoList.filter((todo) => todo.completed).map((todo) => todo.id)
@@ -23,12 +18,15 @@ const ToolOptions = ({ todoList, onFilterTodos, onDeleteTodos }) => {
     <>
       <div className={styles.optionsContainer}>
         <div className={styles.filterBar}>
-          <ToggleButtons options={filterStates} event={onFilter} />
+          <ToggleButtons
+            options={["all", "todo", "completed"]}
+            event={onFilter}
+          />
         </div>
         <div className={styles.deleteContainer}>
           <div className={styles.deleteButton}>
             <span className={styles.icon} onClick={deleteTodos}>
-              <i className="fa-solid fa-trash"></i>
+              <DeleteOutlineOutlinedIcon />
             </span>
           </div>
         </div>

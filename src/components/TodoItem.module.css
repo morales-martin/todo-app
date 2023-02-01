@@ -17,6 +17,7 @@
   padding-top: 2rem; /* 32px */
   padding-bottom: 1.5rem; /* 24px */
   color: rgb(107 114 128);
+  position: relative;
   /* translated from tailwind: bg-white px-8 pt-8 pb-6 rounded-md text-gray-500 shadow-lg */
 }
 
@@ -32,4 +33,11 @@
 .checkbox {
   width: 1rem;
   height: 1rem;
+}
+
+.dropDownMenu {
+  position: absolute;
+  right: 5%;
+  top:25%;
+  height: 100%;
 }
