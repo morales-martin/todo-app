@@ -40,4 +40,17 @@
   right: 5%;
   top:25%;
   height: 100%;
+  z-index: 2;
 }
+
+.labelBar {
+  font-size: small;
+  position: absolute;
+  left:3.5rem;
+  bottom:0.1rem;
+}
+
+/* .todoItem {
+  display: flex;
+  flex-direction: row;
+} */

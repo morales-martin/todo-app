@@ -49,7 +49,6 @@ const LongMenu = ({options, className}) => {
         {options.map((option) => (
           <MenuItem
             key={option}
-            // selected={option === options[0]}
             onClick={handleClose}
           >
             {option}
