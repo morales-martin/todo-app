@@ -5,11 +5,6 @@ export const batchDelete = /* GraphQL */ `
   mutation BatchDelete($ids: [ID]) {
     batchDelete(ids: $ids) {
       id
-      title
-      completed
-      categories
-      createdAt
-      updatedAt
     }
   }
 `;
