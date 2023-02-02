@@ -6,7 +6,7 @@ import LabelBar from "../UI/LabelBar";
 
 import styles from "./TodoItem.module.css";
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, onUpdateTodo }) => {
   const [isCompleted, setIsCompleted] = useState(todo.completed);
   const [categories, setCategories] = useState(todo.categories);
 
@@ -24,7 +24,6 @@ const TodoItem = ({ todo }) => {
 
   const onUpdateCategories = (categories) => {
     setCategories(categories);
-    
     const todoInput = {
       id: todo.id,
       completed: isCompleted,
@@ -32,22 +31,6 @@ const TodoItem = ({ todo }) => {
     };
 
     onUpdateTodo(todoInput);
-  };
-
-  const onUpdateTodo = async (todo) => {
-    try {
-      await API.graphql({
-        query: mutations.updateTodo,
-        variables: {
-          input: { ...todo },
-        },
-      });
-
-      console.log(todo);
-      console.log("Todo successfully updated!");
-    } catch (err) {
-      console.log(`Error: ${JSON.stringify(err)}`);
-    }
   };
 
   return (

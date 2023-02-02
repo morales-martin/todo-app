@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import CreateTodo from "../components/CreateTodo";
 import Todo from "../components/Todos";
@@ -42,11 +42,13 @@ export default function Home({ todos }) {
   Also, this function is passed to the CreateTodo component as a prop
 
   */
+
   const onCreateTodo = async (todo) => {
     // instantiate todo object from input
     const newTodo = {
       title: todo,
       completed: false,
+      categories: [],
     };
 
     // add todo to backend via api
@@ -61,9 +63,29 @@ export default function Home({ todos }) {
       // update todo state
       setTodoList((list) => [...list, { ...newTodo }]);
 
-      console.log("Successfully create a todo!");
+      console.info("Successfully created a todo!");
     } catch (error) {
       console.log(`Error: ${error.message}`);
+    }
+  };
+
+  const onUpdateTodo = async (todo) => {
+    try {
+      await API.graphql({
+        query: mutations.updateTodo,
+        variables: {
+          input: { ...todo },
+        },
+      });
+
+      const newTodoData = await API.graphql({
+        query: queries.listTodos,
+      });
+
+      setTodoList(newTodoData.data.listTodos.items);
+      console.info("Successfully updated todo!")
+    } catch (err) {
+      console.log(`Error: ${JSON.stringify(err)}`);
     }
   };
 
@@ -80,7 +102,7 @@ export default function Home({ todos }) {
       const filterTodo = todoList.filter((todo) => !idSet.has(todo.id));
       setTodoList(filterTodo);
 
-      console.log("Successfully deleted todos!");
+      console.info("Successfully deleted todos!");
     } catch (err) {
       console.log(`Error: ${JSON.stringify(err)}`);
     }
@@ -108,10 +130,10 @@ export default function Home({ todos }) {
         default:
           filter = todoData.data.listTodos.items;
       }
-      
+
       setTodoList(filter);
 
-      console.log("successfully filtered todos!");
+      console.info("successfully filtered todos!");
     } catch (err) {
       console.log(`Error: ${JSON.stringify(err)}`);
     }
@@ -130,7 +152,7 @@ export default function Home({ todos }) {
           <h1 className={styles.title}>Todo List</h1>
           <div className={styles.contentContainer}>
             <CreateTodo onCreateTodo={onCreateTodo}></CreateTodo>
-            <Todo todoList={todoList} />
+            <Todo todoList={todoList} onUpdateTodo={onUpdateTodo} />
             <ToolOptions
               todoList={todoList}
               onFilterTodos={onFilterTodos}
