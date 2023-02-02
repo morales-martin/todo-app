@@ -7,6 +7,7 @@ export const getTodo = /* GraphQL */ `
       id
       title
       completed
+      categories
       createdAt
       updatedAt
     }
@@ -23,6 +24,7 @@ export const listTodos = /* GraphQL */ `
         id
         title
         completed
+        categories
         createdAt
         updatedAt
       }

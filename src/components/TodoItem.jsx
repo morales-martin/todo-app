@@ -8,23 +8,42 @@ import styles from "./TodoItem.module.css";
 
 const TodoItem = ({ todo }) => {
   const [isCompleted, setIsCompleted] = useState(todo.completed);
+  const [categories, setCategories] = useState(todo.categories);
 
-  const onUpdateTodo = async (event) => {
-    let newCompleteValue = !isCompleted;
-    setIsCompleted(newCompleteValue);
-    todo.completed = newCompleteValue;
+  const onTodoCheck = (e) => {
+    setIsCompleted(e.target.checked);
 
-    const todoInput = { id: todo.id, completed: newCompleteValue };
+    const todoInput = {
+      id: todo.id,
+      completed: e.target.checked,
+      categories: categories,
+    };
 
+    onUpdateTodo(todoInput);
+  };
+
+  const onUpdateCategories = (categories) => {
+    setCategories(categories);
+    
+    const todoInput = {
+      id: todo.id,
+      completed: isCompleted,
+      categories: categories,
+    };
+
+    onUpdateTodo(todoInput);
+  };
+
+  const onUpdateTodo = async (todo) => {
     try {
       await API.graphql({
         query: mutations.updateTodo,
         variables: {
-          input: { ...todoInput },
+          input: { ...todo },
         },
       });
 
-      console.log(todoInput);
+      console.log(todo);
       console.log("Todo successfully updated!");
     } catch (err) {
       console.log(`Error: ${JSON.stringify(err)}`);
@@ -35,12 +54,12 @@ const TodoItem = ({ todo }) => {
     <>
       <div className={styles.todoItemContainer}>
         <div className={styles.todoItemBox}>
-          <div className={styles.todoItemFill} onClick={onUpdateTodo}>
+          <div className={styles.todoItemFill}>
             <div key={todo.id} className={styles.todoItem}>
               <input
                 type="checkbox"
                 checked={isCompleted}
-                onChange={onUpdateTodo}
+                onChange={onTodoCheck}
                 className={styles.checkbox}
               />
               <span
@@ -52,8 +71,12 @@ const TodoItem = ({ todo }) => {
                 {todo.title}
               </span>
             </div>
+            <LabelBar
+              className={styles.labelBar}
+              chips={todo.categories}
+              updateEvent={onUpdateCategories}
+            />
           </div>
-          <LabelBar options={["school", "work"]} className={styles.labelBar} />
           <DropDownMenu
             options={["Add Category"]}
             className={styles.dropDownMenu}

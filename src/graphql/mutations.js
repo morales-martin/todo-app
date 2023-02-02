@@ -5,6 +5,11 @@ export const batchDelete = /* GraphQL */ `
   mutation BatchDelete($ids: [ID]) {
     batchDelete(ids: $ids) {
       id
+      title
+      completed
+      categories
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -17,6 +22,7 @@ export const createTodo = /* GraphQL */ `
       id
       title
       completed
+      categories
       createdAt
       updatedAt
     }
@@ -31,6 +37,7 @@ export const updateTodo = /* GraphQL */ `
       id
       title
       completed
+      categories
       createdAt
       updatedAt
     }
@@ -45,6 +52,7 @@ export const deleteTodo = /* GraphQL */ `
       id
       title
       completed
+      categories
       createdAt
       updatedAt
     }

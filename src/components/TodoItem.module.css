@@ -18,6 +18,8 @@
   padding-bottom: 1.5rem; /* 24px */
   color: rgb(107 114 128);
   position: relative;
+  display: flex;
+  flex-direction: row;
   /* translated from tailwind: bg-white px-8 pt-8 pb-6 rounded-md text-gray-500 shadow-lg */
 }
 
@@ -44,10 +46,8 @@
 }
 
 .labelBar {
-  font-size: small;
-  position: absolute;
-  left:3.5rem;
-  bottom:0.1rem;
+  margin-left: 2rem;
+  z-index: 2;
 }
 
 /* .todoItem {

@@ -1,19 +1,33 @@
-import * as React from "react";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
+import React, { useState } from "react";
+import ChipInput from "material-ui-chip-input";
 
-const LabelBar = ({ options, className }) => {
-  const handleDelete = () => {
-    console.info("You clicked the delete icon.");
+const LabelBar = ({ className, chips, updateEvent }) => {
+  const [barChips, setBarChips] = useState(chips);
+
+  const handleDeleteChip = (chip, index) => {
+    const newChipArr = new Set(barChips);
+    newChipArr.delete(chip);
+
+    setBarChips([...newChipArr]);
+    updateEvent([...newChipArr]);
+  };
+
+  const handleAddChip = (chip) => {
+    const newChipArr = [...barChips, chip];
+
+    setBarChips(newChipArr);
+    updateEvent(newChipArr);
   };
 
   return (
     <div className={className}>
-      <Stack direction="row" spacing={1}>
-        {options.map((option) => (
-          <Chip size="small" variant="outlined" label={option} key={option} onDelete={handleDelete} />
-        ))}
-      </Stack>
+      <ChipInput
+        value={barChips}
+        onAdd={(chip) => handleAddChip(chip)}
+        onDelete={(chip, index) => handleDeleteChip(chip, index)}
+        allowDuplicates={false}
+        disableUnderline={true}
+      />
     </div>
   );
 };
