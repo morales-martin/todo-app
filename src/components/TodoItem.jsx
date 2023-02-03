@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { API } from "aws-amplify";
-import * as mutations from "../graphql/mutations";
 import DropDownMenu from "../UI/DropDownMenu";
 import LabelBar from "../UI/LabelBar";
 
