@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 
 const LabelBar = ({ className, chips, updateEvent }) => {
-  const [barChips, setBarChips] = useState(chips);
+  // const [barChips, setBarChips] = useState(chips);
 
   // const handleDeleteChip = (chip, index) => {
   //   const newChipArr = new Set(barChips);
@@ -23,6 +23,10 @@ const LabelBar = ({ className, chips, updateEvent }) => {
   //   updateEvent(newChipArr);
   // };
 
+  const handleChange = (e,values) => {
+    updateEvent(values);
+  }
+
   return (
     <div className={className}>
       <Stack spacing={3} sx={{ width: 500 }}>
@@ -32,6 +36,7 @@ const LabelBar = ({ className, chips, updateEvent }) => {
           id="tags-filled"
           options={[]}
           freeSolo
+          onChange={handleChange}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
               <Chip
