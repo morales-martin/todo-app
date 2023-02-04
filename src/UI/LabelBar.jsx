@@ -5,16 +5,6 @@ import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 
-const StyledAutocomplete = styled(Autocomplete)({
-  ".MuiAutocomplete-inputRoot": {
-    backgroundColor: "transparent",
-    decoration: "none",
-    "& .MuiInputAdornment-root": {
-      border: "none",
-    },
-  },
-});
-
 const LabelBar = ({ className, chips, updateEvent }) => {
   const [barChips, setBarChips] = useState(chips);
 
@@ -36,7 +26,7 @@ const LabelBar = ({ className, chips, updateEvent }) => {
   return (
     <div className={className}>
       <Stack spacing={3} sx={{ width: 500 }}>
-        <StyledAutocomplete
+        <Autocomplete
           size="small"
           multiple
           id="tags-filled"
@@ -56,7 +46,7 @@ const LabelBar = ({ className, chips, updateEvent }) => {
             <TextField
               {...params}
               InputProps={{ ...params.InputProps, disableUnderline: true }}
-              variant="filled"
+              variant="standard"
             />
           )}
         />
