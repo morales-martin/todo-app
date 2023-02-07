@@ -48,9 +48,5 @@
 .labelBar {
   margin-left: 2rem;
   z-index: 2;
+  min-width: 25rem;
 }
-
-/* .todoItem {
-  display: flex;
-  flex-direction: row;
-} */

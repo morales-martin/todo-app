@@ -15,7 +15,7 @@ const LabelBar = ({ className, chips, updateEvent, label = "" }) => {
 
   return (
     <div className={className}>
-      <Stack spacing={3}>
+      <Stack spacing={3} style={{ width: "100%" }}>
         <Autocomplete
           value={barChips}
           size="small"
@@ -24,9 +24,10 @@ const LabelBar = ({ className, chips, updateEvent, label = "" }) => {
           options={[]}
           freeSolo
           onChange={handleChange}
-          renderTags={(value, getTagProps) =>
-            value.map((option, index) => (
+          renderTags={(values,getTagProps) =>
+            values.map((option, index) => (
               <Chip
+                style={{ color: "rgb(107, 114, 128)" }}
                 variant="outlined"
                 label={option}
                 key={`${option}_${index}`}
@@ -40,6 +41,7 @@ const LabelBar = ({ className, chips, updateEvent, label = "" }) => {
           }}
           renderInput={(params) => (
             <TextField
+              sx={{ input: { color: "rgb(107, 114, 128)" } }}
               {...params}
               InputProps={{ ...params.InputProps, disableUnderline: true }}
               variant="standard"

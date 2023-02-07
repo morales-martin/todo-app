@@ -1,7 +1,8 @@
 .formContainer {
   display: flex;
   height: 20%;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.096), 0 4px 6px -4px rgb(0, 0, 0, 0.096);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.096),
+    0 4px 6px -4px rgb(0, 0, 0, 0.096);
   z-index: 1;
 }
 
@@ -25,5 +26,6 @@
 
 .formLabelBar {
   flex: 1;
-  margin-top:2%;
+  display: flex;
+  align-items: center;
 }
