@@ -1,36 +1,23 @@
 import React, { useState } from "react";
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
-import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 
 const LabelBar = ({ className, chips, updateEvent }) => {
-  // const [barChips, setBarChips] = useState(chips);
+  const [barChips, setBarChips] = useState(chips);
+  const [inputValue, setInputValue] = useState("");
 
-  // const handleDeleteChip = (chip, index) => {
-  //   const newChipArr = new Set(barChips);
-  //   newChipArr.delete(chip);
-
-  //   setBarChips([...newChipArr]);
-  //   updateEvent([...newChipArr]);
-  // };
-
-  // const handleAddChip = (chip) => {
-  //   const newChipArr = [...barChips, chip];
-
-  //   setBarChips(newChipArr);
-  //   updateEvent(newChipArr);
-  // };
-
-  const handleChange = (e,values) => {
+  const handleChange = (e, values) => {
+    setBarChips(values);
     updateEvent(values);
-  }
+  };
 
   return (
     <div className={className}>
       <Stack spacing={3} sx={{ width: 500 }}>
         <Autocomplete
+          value={barChips}
           size="small"
           multiple
           id="tags-filled"
@@ -47,6 +34,10 @@ const LabelBar = ({ className, chips, updateEvent }) => {
               />
             ))
           }
+          inputValue={inputValue}
+          onInputChange={(e, newInputValue) => {
+            setInputValue(newInputValue);
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
