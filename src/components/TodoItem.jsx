@@ -58,10 +58,10 @@ const TodoItem = ({ todo, onUpdateTodo }) => {
               updateEvent={onUpdateCategories}
             />
           </div>
-          <DropDownMenu
+          {/* <DropDownMenu
             options={["Add Category"]}
             className={styles.dropDownMenu}
-          />
+          /> */}
         </div>
       </div>
     </>

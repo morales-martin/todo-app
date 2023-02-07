@@ -4,7 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 
-const LabelBar = ({ className, chips, updateEvent }) => {
+const LabelBar = ({ className, chips, updateEvent, label = "" }) => {
   const [barChips, setBarChips] = useState(chips);
   const [inputValue, setInputValue] = useState("");
 
@@ -15,7 +15,7 @@ const LabelBar = ({ className, chips, updateEvent }) => {
 
   return (
     <div className={className}>
-      <Stack spacing={3} sx={{ width: 500 }}>
+      <Stack spacing={3}>
         <Autocomplete
           value={barChips}
           size="small"
@@ -43,6 +43,7 @@ const LabelBar = ({ className, chips, updateEvent }) => {
               {...params}
               InputProps={{ ...params.InputProps, disableUnderline: true }}
               variant="standard"
+              label={label}
             />
           )}
         />

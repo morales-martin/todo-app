@@ -50,9 +50,9 @@ export default function Home({ todos }) {
   const onCreateTodo = async (todo) => {
     // instantiate todo object from input
     const newTodo = {
-      title: todo,
+      title: todo.title,
       completed: false,
-      categories: [],
+      categories: todo.categories,
     };
 
     // add todo to backend via api

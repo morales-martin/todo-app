@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import styles from "./CreateTodo.module.css";
+import LabelBar from "../UI/LabelBar";
 
 const CreateTodo = ({ onCreateTodo }) => {
-  const [todoItem, setTodoItem] = useState("");
+  const [todoItem, setTodoItem] = useState({ title: "", categories: [] });
 
-  const onInputChange = (e) => {
-    const { value } = e.target;
-    setTodoItem(value);
+  const onCategoryChange = (values) => {
+    setTodoItem((prev) => ({ ...prev, categories: values }));
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onTitleChange = (e) => {
+    setTodoItem((prev) => ({ ...prev, title: e.target.value }));
+  };
+
+  const onSubmit = () => {
     onCreateTodo(todoItem);
-    setTodoItem("");
+    setTodoItem({ title: "", categories: [] });
   };
 
   return (
@@ -24,9 +27,16 @@ const CreateTodo = ({ onCreateTodo }) => {
               className={styles.input}
               id="todo"
               name="todo"
-              value={todoItem}
+              value={todoItem.title}
               placeholder="What needs to be done?"
-              onChange={onInputChange}
+              onChange={onTitleChange}
+              onKeyDown={(e) => (e.key === "Enter" ? onSubmit() : null)}
+            />
+            <LabelBar
+              className={styles.formLabelBar}
+              chips={todoItem.categories}
+              updateEvent={onCategoryChange}
+              label="Add a category or Flag"
             />
           </div>
         </div>
