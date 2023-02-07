@@ -32,8 +32,12 @@ export async function getStaticProps() {
   };
 }
 
+const sortTodoList = (todos) => {
+  return todos.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+};
+
 export default function Home({ todos }) {
-  const [todoList, setTodoList] = useState(todos);
+  const [todoList, setTodoList] = useState(sortTodoList(todos));
 
   /*
 
@@ -61,7 +65,11 @@ export default function Home({ todos }) {
       newTodo.id = newTodoData.data.createTodo.id;
 
       // update todo state
-      setTodoList((list) => [...list, { ...newTodo }]);
+      let newList = sortTodoList([
+        ...todoList,
+        { ...newTodoData.data.createTodo },
+      ]);
+      setTodoList(newList);
 
       console.info("Successfully created a todo!");
     } catch (error) {
@@ -81,9 +89,10 @@ export default function Home({ todos }) {
       const newTodoData = await API.graphql({
         query: queries.listTodos,
       });
+      let sortedList = sortTodoList(newTodoData.data.listTodos.items);
 
-      setTodoList(newTodoData.data.listTodos.items);
-      console.info("Successfully updated todo!")
+      setTodoList(sortedList);
+      console.info("Successfully updated todo!");
     } catch (err) {
       console.log(`Error: ${JSON.stringify(err)}`);
     }
@@ -100,7 +109,9 @@ export default function Home({ todos }) {
       let idSet = new Set(idList);
       // updating todo state
       const filterTodo = todoList.filter((todo) => !idSet.has(todo.id));
-      setTodoList(filterTodo);
+
+      let sortedList = sortTodoList(filterTodo);
+      setTodoList(sortedList);
 
       console.info("Successfully deleted todos!");
     } catch (err) {
@@ -131,7 +142,8 @@ export default function Home({ todos }) {
           filter = todoData.data.listTodos.items;
       }
 
-      setTodoList(filter);
+      let sortedList = sortTodoList(filter);
+      setTodoList(sortedList);
 
       console.info("successfully filtered todos!");
     } catch (err) {
