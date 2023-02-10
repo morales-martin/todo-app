@@ -1,11 +1,11 @@
 .todoItemContainer {
   display: flex;
   justify-content: center;
+  min-width: fit-content;
 }
 
 .todoItemBox {
   position: relative;
-  justify-content: center;
   width: 100%;
   border-bottom: 1px solid rgb(107, 114, 128, 0.096);
 }
@@ -20,7 +20,12 @@
   position: relative;
   display: flex;
   flex-direction: row;
+
   /* translated from tailwind: bg-white px-8 pt-8 pb-6 rounded-md text-gray-500 shadow-lg */
+}
+
+.todoItem {
+  min-width: fit-content;
 }
 
 .iconContainer {
@@ -40,13 +45,23 @@
 .dropDownMenu {
   position: absolute;
   right: 5%;
-  top:25%;
+  top: 25%;
   height: 100%;
   z-index: 2;
 }
 
 .labelBar {
   margin-left: 2rem;
-  z-index: 2;
-  min-width: 25rem;
+}
+
+@media screen and (max-width: 600px) {
+  .todoItemFill {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .labelBar {
+    margin-left: 2rem;
+  }
 }

@@ -39,14 +39,6 @@ const sortTodoList = (todos) => {
 export default function Home({ todos }) {
   const [todoList, setTodoList] = useState(sortTodoList(todos));
 
-  /*
-
-  Here, the onCreateTodo function receives an 
-  input of an object with title and completed values. 
-  Also, this function is passed to the CreateTodo component as a prop
-
-  */
-
   const onCreateTodo = async (todo) => {
     // instantiate todo object from input
     const newTodo = {
@@ -163,7 +155,7 @@ export default function Home({ todos }) {
         <div className={styles.pageContainer}>
           <h1 className={styles.title}>Todo List</h1>
           <div className={styles.contentContainer}>
-            <CreateTodo onCreateTodo={onCreateTodo}></CreateTodo>
+            <CreateTodo onCreateTodo={onCreateTodo} />
             <Todo todoList={todoList} onUpdateTodo={onUpdateTodo} />
             <ToolOptions
               todoList={todoList}

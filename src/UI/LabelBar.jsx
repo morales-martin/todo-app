@@ -24,7 +24,7 @@ const LabelBar = ({ className, chips, updateEvent, label = "" }) => {
           options={[]}
           freeSolo
           onChange={handleChange}
-          renderTags={(values,getTagProps) =>
+          renderTags={(values, getTagProps) =>
             values.map((option, index) => (
               <Chip
                 style={{ color: "rgb(107, 114, 128)" }}
