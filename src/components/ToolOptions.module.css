@@ -13,11 +13,23 @@
 .deleteContainer {
   position: absolute;
   right: 5%;
-  top:25%;
+  top: 25%;
   height: 100%;
 }
 
 .icon {
-    color: rgb(239 68 68);
-    cursor: pointer;
-  }
+  color: rgb(239 68 68);
+  cursor: pointer;
+}
+
+.loginButton {
+  position: absolute;
+  left: 5%;
+  top: 25%;
+  height: 100%;
+  color: grey;
+}
+
+.loginButton:hover {
+  cursor: pointer;
+}
