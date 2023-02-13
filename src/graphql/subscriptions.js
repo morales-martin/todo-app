@@ -8,6 +8,7 @@ export const onCreateTodo = /* GraphQL */ `
       title
       completed
       categories
+      user
       createdAt
       updatedAt
     }
@@ -20,6 +21,7 @@ export const onUpdateTodo = /* GraphQL */ `
       title
       completed
       categories
+      user
       createdAt
       updatedAt
     }
@@ -32,6 +34,7 @@ export const onDeleteTodo = /* GraphQL */ `
       title
       completed
       categories
+      user
       createdAt
       updatedAt
     }

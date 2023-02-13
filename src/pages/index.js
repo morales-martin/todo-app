@@ -1,5 +1,6 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 import CreateTodo from "../components/CreateTodo";
 import Todo from "../components/Todos";
@@ -14,37 +15,54 @@ import * as queries from "../graphql/queries";
 
 Amplify.configure(awsconfig);
 
-/*
+// export async function getStaticProps() {
 
-Using Amplify's automatically generated query listTodos imported from the ../src/graphql/queries 
-directory to get a list of all the Todos from the backend API, which is then passed as props to the main component.
-
-*/
-export async function getStaticProps() {
-  const todoData = await API.graphql({
-    query: queries.listTodos,
-  });
-
-  return {
-    props: {
-      todos: todoData.data.listTodos.items,
-    },
-  };
-}
-
-const sortTodoList = (todos) => {
-  return todos.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-};
+// }
 
 export default function Home({ todos }) {
-  const [todoList, setTodoList] = useState(sortTodoList(todos));
+  const [todoList, setTodoList] = useState([]);
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      listTodos();
+    }
+  }, [session]);
+
+  const listTodos = async () => {
+    let filter = {};
+
+    // filtering todos created by user if active session
+    if (session) {
+      filter.user = {
+        eq: session.user.email,
+      };
+    }
+
+    try {
+      const todoData = await API.graphql({
+        query: queries.listTodos,
+        variables: { filter: filter },
+      });
+
+      setTodoList(sortTodoList(todoData.data.listTodos.items));
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const sortTodoList = (todos) => {
+    return todos.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  };
 
   const onCreateTodo = async (todo) => {
+    console.log(session.user);
     // instantiate todo object from input
     const newTodo = {
       title: todo.title,
       completed: false,
       categories: todo.categories,
+      user: session.user.email,
     };
 
     // add todo to backend via api
@@ -65,7 +83,7 @@ export default function Home({ todos }) {
 
       console.info("Successfully created a todo!");
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      console.log(`Error: ${JSON.stringify(error)}`);
     }
   };
 
@@ -74,13 +92,31 @@ export default function Home({ todos }) {
       await API.graphql({
         query: mutations.updateTodo,
         variables: {
-          input: { ...todo },
+          input: { ...todo, user: session.user.email },
         },
       });
 
+      let filter = {};
+
+      // filtering todos created by user if active session
+      if (session) {
+        filter.user = {
+          eq: session.user.email,
+        };
+      }
+
+      // filtering 'completed' status
+      if (tag === "todo") {
+        filter.completed = { eq: false };
+      } else if (tag === "completed") {
+        filter.completed = { eq: true };
+      }
+
       const newTodoData = await API.graphql({
         query: queries.listTodos,
+        variables: { filter: filter },
       });
+
       let sortedList = sortTodoList(newTodoData.data.listTodos.items);
 
       setTodoList(sortedList);
@@ -112,34 +148,33 @@ export default function Home({ todos }) {
   };
 
   const onFilterTodos = async (tag) => {
+    let filter = {};
+
+    // filtering todos created by user if active session
+    if (session) {
+      filter.user = {
+        eq: session.user.email,
+      };
+    }
+
+    // filtering 'completed' status
+    if (tag === "todo") {
+      filter.completed = { eq: false };
+    } else if (tag === "completed") {
+      filter.completed = { eq: true };
+    }
+
     try {
       const todoData = await API.graphql({
         query: queries.listTodos,
+        variables: { filter: filter },
       });
 
-      let filter;
-
-      switch (tag) {
-        case "todo":
-          filter = todoData.data.listTodos.items.filter(
-            (todo) => todo.completed === false
-          );
-          break;
-        case "completed":
-          filter = todoData.data.listTodos.items.filter(
-            (todo) => todo.completed === true
-          );
-          break;
-        default:
-          filter = todoData.data.listTodos.items;
-      }
-
-      let sortedList = sortTodoList(filter);
-      setTodoList(sortedList);
+      setTodoList(todoData.data.listTodos.items);
 
       console.info("successfully filtered todos!");
     } catch (err) {
-      console.log(`Error: ${JSON.stringify(err)}`);
+      console.log(`${JSON.stringify(err)}`);
     }
   };
 
