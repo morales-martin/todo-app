@@ -3,11 +3,10 @@ import { styled } from "@mui/material/styles";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
-const ToggleButtons = ({ options, event }) => {
-  const [filter, setFilter] = React.useState(options[0]);
+const ToggleButtons = ({ toggleState, setToggleState, options, event }) => {
 
   const handleToggle = (e) => {
-    setFilter(e.target.value);
+    setToggleState(e.target.value);
     event(e.target.value);
   };
 
@@ -29,7 +28,7 @@ const ToggleButtons = ({ options, event }) => {
 
   return (
     <StyledToggleButtonGroup
-      value={filter}
+      value={toggleState}
       exclusive
       onChange={handleToggle}
       aria-label="todo list filter"

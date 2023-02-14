@@ -22,6 +22,7 @@ Amplify.configure(awsconfig);
 export default function Home({ todos }) {
   const [todoList, setTodoList] = useState([]);
   const { data: session } = useSession();
+  const [tab, setTab] = useState("all");
 
   useEffect(() => {
     if (session) {
@@ -30,14 +31,11 @@ export default function Home({ todos }) {
   }, [session]);
 
   const listTodos = async () => {
-    let filter = {};
-
-    // filtering todos created by user if active session
-    if (session) {
-      filter.user = {
+    let filter = {
+      user: {
         eq: session.user.email,
-      };
-    }
+      },
+    };
 
     try {
       const todoData = await API.graphql({
@@ -56,7 +54,8 @@ export default function Home({ todos }) {
   };
 
   const onCreateTodo = async (todo) => {
-    console.log(session.user);
+    setTab("all");
+
     // instantiate todo object from input
     const newTodo = {
       title: todo.title,
@@ -67,19 +66,12 @@ export default function Home({ todos }) {
 
     // add todo to backend via api
     try {
-      let newTodoData = await API.graphql({
+      await API.graphql({
         query: mutations.createTodo,
         variables: { input: newTodo },
       });
 
-      newTodo.id = newTodoData.data.createTodo.id;
-
-      // update todo state
-      let newList = sortTodoList([
-        ...todoList,
-        { ...newTodoData.data.createTodo },
-      ]);
-      setTodoList(newList);
+      listTodos();
 
       console.info("Successfully created a todo!");
     } catch (error) {
@@ -106,9 +98,9 @@ export default function Home({ todos }) {
       }
 
       // filtering 'completed' status
-      if (tag === "todo") {
+      if (tab === "todo") {
         filter.completed = { eq: false };
-      } else if (tag === "completed") {
+      } else if (tab === "completed") {
         filter.completed = { eq: true };
       }
 
@@ -122,7 +114,7 @@ export default function Home({ todos }) {
       setTodoList(sortedList);
       console.info("Successfully updated todo!");
     } catch (err) {
-      console.log(`Error: ${JSON.stringify(err)}`);
+      console.log(`${JSON.stringify(err)}`);
     }
   };
 
@@ -143,11 +135,14 @@ export default function Home({ todos }) {
 
       console.info("Successfully deleted todos!");
     } catch (err) {
-      console.log(`Error: ${JSON.stringify(err)}`);
+      console.log(`${JSON.stringify(err)}`);
     }
   };
 
   const onFilterTodos = async (tag) => {
+    if (tab === tag) return;
+
+    setTab(tag);
     let filter = {};
 
     // filtering todos created by user if active session
@@ -193,6 +188,8 @@ export default function Home({ todos }) {
             <CreateTodo onCreateTodo={onCreateTodo} />
             <Todo todoList={todoList} onUpdateTodo={onUpdateTodo} />
             <ToolOptions
+              tab={tab}
+              setTab={setTab}
               todoList={todoList}
               onFilterTodos={onFilterTodos}
               onDeleteTodos={onDeleteTodos}

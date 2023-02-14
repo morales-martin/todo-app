@@ -4,7 +4,7 @@ import ToggleButtons from "../UI/ToggleButtons";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import LoginButton from "@/UI/LoginButton";
 
-const ToolOptions = ({ todoList, onFilterTodos, onDeleteTodos }) => {
+const ToolOptions = ({ tab, setTab, todoList, onFilterTodos, onDeleteTodos }) => {
   const deleteTodos = async () => {
     onDeleteTodos(
       todoList.filter((todo) => todo.completed).map((todo) => todo.id)
@@ -23,6 +23,8 @@ const ToolOptions = ({ todoList, onFilterTodos, onDeleteTodos }) => {
           <ToggleButtons
             options={["all", "todo", "completed"]}
             event={onFilter}
+            toggleState={tab}
+            setToggleState={setTab}
           />
         </div>
         <div className={styles.deleteContainer}>
