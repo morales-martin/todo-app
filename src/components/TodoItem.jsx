@@ -12,6 +12,7 @@ const TodoItem = ({ todo, onUpdateTodo }) => {
     setIsCompleted(e.target.checked);
 
     const todoInput = {
+      title: todo.title,
       id: todo.id,
       completed: e.target.checked,
       categories: categories,
