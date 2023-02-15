@@ -90,7 +90,6 @@ To get a local copy up and running follow these steps.
    npm install
    ```
 3. Run the development server:
-
   ```bash
   npm run dev
   # or
