@@ -77,22 +77,9 @@ Add Chord<br />
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
+### Installation
 To get a local copy up and running follow these steps.
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
 
 1. Clone the repo
    ```sh
