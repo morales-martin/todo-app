@@ -96,13 +96,13 @@ To get a local copy up and running follow these steps.
    NEXTAUTH_SECRET=/** INSERT SECRET **/
    ```
 5. Run the development server:
-  ```sh
-  npm run dev
-  # or
-  yarn dev
-  # or
-  pnpm dev 
-  ```
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev 
+   ```
   
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
