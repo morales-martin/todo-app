@@ -7,13 +7,8 @@ import Todo from "../components/Todos";
 import ToolOptions from "../components/ToolOptions";
 import styles from "./index.module.css";
 
-import { Amplify, API } from "aws-amplify";
-import awsconfig from "../aws-exports";
+import { listTodos, createTodo, updateTodo, deleteTodos } from "../API";
 
-import * as mutations from "../graphql/mutations";
-import * as queries from "../graphql/queries";
-
-Amplify.configure(awsconfig);
 const todoMap = new Map();
 
 export default function Home({ todos }) {
@@ -24,11 +19,15 @@ export default function Home({ todos }) {
   // for use when user is not signed in
   useEffect(() => {
     if (session) {
-      listTodos();
+      listAllTodos();
     }
   }, [session]);
 
-  const listTodos = async () => {
+  useEffect(() => {
+    listAllTodos();
+  }, [tab]);
+
+  const listAllTodos = async () => {
     if (session) {
       let filter = {
         user: {
@@ -36,18 +35,36 @@ export default function Home({ todos }) {
         },
       };
 
-      try {
-        const todoData = await API.graphql({
-          query: queries.listTodos,
-          variables: { filter: filter },
-        });
-
-        setTodoList(sortTodoList(todoData.data.listTodos.items));
-      } catch (err) {
-        console.error(err.message);
+      // filtering 'completed' status
+      if (tab === "todo") {
+        filter.completed = { eq: false };
+      } else if (tab === "completed") {
+        filter.completed = { eq: true };
       }
+
+      await listTodos(filter).then((res) => {
+        setTodoList(sortTodoList(res));
+      });
     } else {
-      setTodoList(sortTodoList([...todoMap].map(([key, value]) => value)));
+      if (tab === "todo") {
+        setTodoList(
+          sortTodoList(
+            [...todoMap]
+              .map(([key, value]) => value)
+              .filter((todo) => !todo.completed)
+          )
+        );
+      } else if (tab === "completed") {
+        setTodoList(
+          sortTodoList(
+            [...todoMap]
+              .map(([key, value]) => value)
+              .filter((todo) => todo.completed)
+          )
+        );
+      } else {
+        setTodoList(sortTodoList([...todoMap].map(([key, value]) => value)));
+      }
     }
   };
 
@@ -56,7 +73,6 @@ export default function Home({ todos }) {
   };
 
   const onCreateTodo = async (todo) => {
-    setTab("all");
     const newTodo = {
       title: todo.title,
       completed: false,
@@ -64,178 +80,50 @@ export default function Home({ todos }) {
     };
 
     if (session) {
-      // instantiate todo object from input
       newTodo.user = session.user.email;
-      // add todo to backend via api
-      try {
-        await API.graphql({
-          query: mutations.createTodo,
-          variables: { input: newTodo },
-        });
-
-        listTodos();
-
-        console.info("Successfully created a todo!");
-      } catch (error) {
-        console.log(`Error: ${JSON.stringify(error)}`);
-      }
+      await createTodo(newTodo).then((res) => {
+        if (tab === "all") {
+          listAllTodos();
+        } else {
+          setTab("all");
+        }
+      });
     } else {
       let currDate = new Date();
-      newTodo.id = `todo_${todo.title.replace(
-        " ",
-        ""
-      )}_${currDate.toLocaleString().replace(" ","")}`;
-      console.log(newTodo);
+      newTodo.id = `todo_${todo.title.replace(" ", "")}_${currDate
+        .toLocaleString()
+        .replace(" ", "")}`;
       todoMap.set(newTodo.id, newTodo);
 
-      listTodos();
+      setTab("all");
     }
   };
 
   const onUpdateTodo = async (todo) => {
     if (session) {
-      try {
-        await API.graphql({
-          query: mutations.updateTodo,
-          variables: {
-            input: { ...todo, user: session.user.email },
-          },
-        });
-
-        let filter = {
-          user: {
-            eq: session.user.email,
-          },
-        };
-
-        // filtering 'completed' status
-        if (tab === "todo") {
-          filter.completed = { eq: false };
-        } else if (tab === "completed") {
-          filter.completed = { eq: true };
-        }
-
-        const newTodoData = await API.graphql({
-          query: queries.listTodos,
-          variables: { filter: filter },
-        });
-
-        let sortedList = sortTodoList(newTodoData.data.listTodos.items);
-
-        setTodoList(sortedList);
-        console.info("Successfully updated todo!");
-      } catch (err) {
-        console.log(`${JSON.stringify(err)}`);
-      }
+      await updateTodo({ ...todo, user: session.user.email }).then((res) =>
+        listAllTodos()
+      );
     } else {
       todoMap.set(todo.id, todo);
-
-      if (tab === "todo") {
-        setTodoList(
-          [...todoMap]
-            .map(([key, value]) => value)
-            .filter((todo) => !todo.completed)
-        );
-      } else if (tab === "completed") {
-        setTodoList(
-          [...todoMap]
-            .map(([key, value]) => value)
-            .filter((todo) => todo.completed)
-        );
-      } else {
-        listTodos();
-      }
+      listAllTodos();
     }
   };
 
   const onDeleteTodos = async (idList) => {
     if (session) {
-      try {
-        await API.graphql({
-          query: mutations.batchDelete,
-          variables: { ids: idList },
-        });
-
-        let idSet = new Set(idList);
-        // updating todo state
-        const filterTodo = todoList.filter((todo) => !idSet.has(todo.id));
-
-        let sortedList = sortTodoList(filterTodo);
-        setTodoList(sortedList);
-
-        console.info("Successfully deleted todos!");
-      } catch (err) {
-        console.log(`${JSON.stringify(err)}`);
-      }
+      await deleteTodos(idList).then((res) => listAllTodos());
     } else {
       for (const id of idList) {
         todoMap.delete(id);
       }
-
-      if (tab === "todo") {
-        setTodoList(
-          [...todoMap]
-            .map(([key, value]) => value)
-            .filter((todo) => !todo.completed)
-        );
-      } else if (tab === "completed") {
-        setTodoList(
-          [...todoMap]
-            .map(([key, value]) => value)
-            .filter((todo) => todo.completed)
-        );
-      } else {
-        listTodos();
-      }
+      listAllTodos();
     }
   };
 
   const onFilterTodos = async (tag) => {
     if (tab === tag) return;
-
     setTab(tag);
-
-    if (session) {
-      let filter = {
-        user: { eq: session.user.email },
-      };
-
-      // filtering 'completed' status
-      if (tag === "todo") {
-        filter.completed = { eq: false };
-      } else if (tag === "completed") {
-        filter.completed = { eq: true };
-      }
-
-      try {
-        const todoData = await API.graphql({
-          query: queries.listTodos,
-          variables: { filter: filter },
-        });
-
-        setTodoList(todoData.data.listTodos.items);
-
-        console.info("successfully filtered todos!");
-      } catch (err) {
-        console.log(`${JSON.stringify(err)}`);
-      }
-    } else {
-      if (tag === "todo") {
-        setTodoList(
-          [...todoMap]
-            .map(([key, value]) => value)
-            .filter((todo) => !todo.completed)
-        );
-      } else if (tag === "completed") {
-        setTodoList(
-          [...todoMap]
-            .map(([key, value]) => value)
-            .filter((todo) => todo.completed)
-        );
-      } else {
-        listTodos();
-      }
-    }
   };
 
   return (

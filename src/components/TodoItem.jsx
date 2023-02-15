@@ -25,6 +25,7 @@ const TodoItem = ({ todo, onUpdateTodo }) => {
     setCategories(categories);
     const todoInput = {
       id: todo.id,
+      title: todo.title,
       completed: isCompleted,
       categories: categories,
     };
