@@ -83,14 +83,20 @@ To get a local copy up and running follow these steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/morales-martin/chord-search.git
+   git clone https://github.com/morales-martin/todo-app.git
    ```
 2. Install NPM packages
    ```sh
    npm install
    ```
-3. Run the development server:
-  ```bash
+3. Create a .env file in your application's root directory with the following variables:
+   ```sh
+   GOOGLE_ID = /** INSERT GOOGLE APP ID **/
+   GOOGLE_SECRET = /** INSERT GOOGLE SECRET **/
+   NEXTAUTH_SECRET=/** INSERT SECRET **/
+   ```
+5. Run the development server:
+  ```sh
   npm run dev
   # or
   yarn dev
