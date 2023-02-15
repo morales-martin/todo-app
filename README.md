@@ -93,7 +93,7 @@ To get a local copy up and running follow these steps.
    ```sh
    GOOGLE_ID = /** INSERT GOOGLE APP ID **/
    GOOGLE_SECRET = /** INSERT GOOGLE SECRET **/
-   NEXTAUTH_SECRET=/** INSERT SECRET **/
+   NEXTAUTH_SECRET=/** INSERT NEXTAUTH SECRET **/
    ```
 5. Run the development server:
    ```sh
