@@ -163,16 +163,16 @@ Project Link: [https://github.com/morales-martin/chord-search](https://github.co
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/morales-martin/chord-search.svg?style=for-the-badge
-[contributors-url]: https://github.com/morales-martin/chord-search/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/morales-martin/chord-search.svg?style=for-the-badge
-[forks-url]: https://github.com/morales-martin/chord-search/network/members
-[stars-shield]: https://img.shields.io/github/stars/morales-martin/chord-search.svg?style=for-the-badge
-[stars-url]: https://github.com/morales-martin/chord-search/stargazers
-[issues-shield]: https://img.shields.io/github/issues/morales-martin/chord-search.svg?style=for-the-badge
-[issues-url]: https://github.com/morales-martin/chord-search/issues
-[license-shield]: https://img.shields.io/github/license/morales-martin/chord-search.svg?style=for-the-badge
-[license-url]: https://github.com/morales-martin/chord-search/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/morales-martin/todo-app.svg?style=for-the-badge
+[contributors-url]: https://github.com/morales-martin/todo-app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/morales-martin/todo-app.svg?style=for-the-badge
+[forks-url]: https://github.com/morales-martin/todo-app/network/members
+[stars-shield]: https://img.shields.io/github/stars/morales-martin/todo-app.svg?style=for-the-badge
+[stars-url]: https://github.com/morales-martin/todo-app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/morales-martin/todo-app.svg?style=for-the-badge
+[issues-url]: https://github.com/morales-martin/todo-app/issues
+[license-shield]: https://img.shields.io/github/license/morales-martin/todo-app.svg?style=for-the-badge
+[license-url]: https://github.com/morales-martin/todo-app/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/morales-martin24/
 [product-screenshot]: images/screenshot.png
