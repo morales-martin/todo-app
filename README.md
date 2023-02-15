@@ -61,8 +61,10 @@ This project uses Next.JS and AWS Appsync to create a 'Todo' web platform, with 
 - User authentication: Users are able to log in using their Google account. 
 - User-authenticated saved tasks / sessions: Once logged in, user sessions / tasks are saved to a database for later use.
 
+<!--
 Add Chord<br />
 ![Add Chord Functionality GIF](https://media.giphy.com/media/IRgicdHHjHdYZT2hjq/giphy.gif)
+-->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
