@@ -154,7 +154,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Martin Morales - morales-martin@outlook.com
 
-Project Link: [https://github.com/morales-martin/chord-search](https://github.com/morales-martin/chord-search)
+Project Link: [https://github.com/morales-martin/todo-app](https://github.com/morales-martin/todo-app)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
