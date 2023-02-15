@@ -56,10 +56,10 @@
 
 This project uses Next.JS and AWS Appsync to create a 'Todo' web platform, with NextAuth.js for authentication. A 'Todo' web platform provides users with a task management interface that allows for the creation, update, and deletion of tasks. Additional functions in this project include: task flags / category 'chips', task status filtering, user authentication, user-authenticated saved tasks. 
 
-- Tasks Flags / Category 'Chips': Users are able to add custom flags or categories to tasks once created. Multiple chips can be added to a task. Individual chips can be removed from a task.
-- Task Status Filtering: The task list view can be filtered by three options: "All", "Todo", and "Completed". "All" will list all tasks associated with the session / user. "Todo" will list all tasks that have not been marked as completed. "Completed" will list all tasks that have been marked as complete. Note: A task is marked as complete if its corresponding checkbox has been checked.
-- User authentication: Users are able to log in using their Google account. 
-- User-authenticated saved tasks / sessions: Once logged in, user sessions / tasks are saved to a database for later use.
+- **Tasks Flags / Category 'Chips'**: Users are able to add custom flags or categories to tasks once created. Multiple chips can be added to a task. Individual chips can be removed from a task.
+- **Task Status Filtering**: The task list view can be filtered by three options: "All", "Todo", and "Completed". "All" will list all tasks associated with the session / user. "Todo" will list all tasks that have not been marked as completed. "Completed" will list all tasks that have been marked as complete. Note: A task is marked as complete if its corresponding checkbox has been checked.
+- **User authentication**: Users are able to log in using their Google account. 
+- **User-authenticated saved tasks / sessions**: Once logged in, user sessions / tasks are saved to a database for later use.
 
 <!--
 Add Chord<br />
