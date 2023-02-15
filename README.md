@@ -107,6 +107,7 @@ This is an example of how to list things you need to use the software and how to
   yarn dev
   # or
   pnpm dev 
+  ```
   
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -188,4 +189,3 @@ Project Link: [https://github.com/morales-martin/chord-search](https://github.co
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-
