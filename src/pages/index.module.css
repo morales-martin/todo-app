@@ -27,3 +27,13 @@
   display: flex;
   margin: 0 auto;
 }
+
+@media (prefers-color-scheme: dark) {
+  .contentContainer {
+    background-color: rgb(68 68 68);
+  }
+
+  .title {
+    color: rgb(68 68 68);
+  }
+}

@@ -33,3 +33,17 @@
 .loginButton:hover {
   cursor: pointer;
 }
+
+@media (prefers-color-scheme: dark) {
+  .icon {
+    color: rgb(190 190 190);
+  }
+
+  .loginButton {
+    color: rgb(190 190 190);
+  }
+
+  .optionsContainer {
+    border-top: 1px solid rgb(190, 190, 190, 0.096);
+  }
+}

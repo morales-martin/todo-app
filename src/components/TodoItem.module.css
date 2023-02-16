@@ -65,3 +65,14 @@
     margin-left: 2rem;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .todoItemBox {
+    border-bottom: 1px solid rgb(190, 190, 190, 0.096);
+  }
+
+  .todoItemFill {
+    background-color: rgb(68 68 68);
+    color: rgb(190 190 190);
+  }
+}

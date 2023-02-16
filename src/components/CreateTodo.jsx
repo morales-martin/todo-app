@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./CreateTodo.module.css";
-import LabelBar from "../UI/LabelBar";
 import TextField from "../UI/TextField";
 
 const CreateTodo = ({ onCreateTodo }) => {
