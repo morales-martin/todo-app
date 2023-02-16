@@ -52,6 +52,7 @@
 
 .labelBar {
   margin-left: 2rem;
+  width: 90%;
 }
 
 @media screen and (max-width: 600px) {

@@ -76,6 +76,7 @@ const LabelBar = ({ className, chips, updateEvent, label = "" }) => {
               InputProps={{ ...params.InputProps, disableUnderline: true }}
               variant="standard"
               label={label}
+              placeholder={"Add flag"}
             />
           )}
         />
