@@ -11,5 +11,9 @@ type Todo @model {
 }
 
 type Mutation {
-  batchDelete(ids: [ID]): [Todo]
+  batchDelete(ids: [ID]): [Todo: {id}]
+}
+
+type Subscription {
+  onBatchDelete(user: String): [Todo] @aws_subscribe(mutations: ["batchDelete"])
 }

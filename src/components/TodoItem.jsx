@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DropDownMenu from "../UI/DropDownMenu";
 import LabelBar from "../UI/LabelBar";
 
@@ -7,6 +7,10 @@ import styles from "./TodoItem.module.css";
 const TodoItem = ({ todo, onUpdateTodo }) => {
   const [isCompleted, setIsCompleted] = useState(todo.completed);
   const [categories, setCategories] = useState(todo.categories);
+
+  useEffect(() => {
+    setIsCompleted(todo.completed);
+  }, [todo.completed]);
 
   const onTodoCheck = (e) => {
     setIsCompleted(e.target.checked);

@@ -9,24 +9,71 @@ import styles from "./index.module.css";
 
 import { listTodos, createTodo, updateTodo, deleteTodos } from "../API";
 
-const todoMap = new Map();
+import { Amplify, API, graphqlOperation } from "aws-amplify";
+import awsconfig from "../aws-exports";
+import * as subscriptions from "../graphql/subscriptions";
+
+Amplify.configure(awsconfig);
+
+let todoMap = new Map();
 
 export default function Home({ todos }) {
   const { data: session } = useSession();
   const [todoList, setTodoList] = useState([]);
   const [tab, setTab] = useState("all");
+  const [todo, setTodo] = useState();
+  let createSubscription;
+  let updateSubscription;
+  let deleteSubscription;
 
-  // for use when user is not signed in
+  useEffect(() => {
+    setUpSubscriptions();
+
+    return () => {
+      createSubscription.unsubscribe();
+      updateSubscription.unsubscribe();
+      deleteSubscription.unsubscribe();
+    };
+  }, []);
+
   useEffect(() => {
     if (session) {
-      console.log(session.user);
       listAllTodos();
     }
   }, [session]);
 
   useEffect(() => {
     listAllTodos();
-  }, [tab]);
+  }, [tab, todo]);
+
+  const setUpSubscriptions = () => {
+    createSubscription = API.graphql(
+      graphqlOperation(subscriptions.onCreateTodo)
+    ).subscribe({
+      next: (result) => {
+        setTodo(result);
+      },
+      error: (error) => console.warn(error),
+    });
+
+    updateSubscription = API.graphql(
+      graphqlOperation(subscriptions.onUpdateTodo)
+    ).subscribe({
+      next: (result) => {
+        setTodo(result);
+      },
+      error: (error) => console.warn(error),
+    });
+
+    deleteSubscription = API.graphql(
+      graphqlOperation(subscriptions.onBatchDelete)
+    ).subscribe({
+      next: (result) => {
+        setTodo(result);
+      },
+      error: (error) => console.warn(error),
+    });
+  };
 
   const listAllTodos = async () => {
     if (session) {
@@ -74,46 +121,39 @@ export default function Home({ todos }) {
   };
 
   const onCreateTodo = async (todo) => {
+    let currDate = new Date();
     const newTodo = {
       title: todo.title,
       completed: false,
       categories: todo.categories,
     };
 
+    newTodo.id = `todo_${todo.title.replace(
+      " ",
+      ""
+    )}_${currDate.getMonth()}${currDate.getDay()}${currDate.getFullYear()}${currDate.getHours()}${currDate.getMinutes()}${currDate.getSeconds()}${currDate.getMilliseconds()}`;
+
     if (session) {
       newTodo.user = session.user.email;
-      await createTodo(newTodo).then((res) => {
-        if (tab === "all") {
-          listAllTodos();
-        } else {
-          setTab("all");
-        }
-      });
+      await createTodo(newTodo);
     } else {
-      let currDate = new Date();
-      newTodo.id = `todo_${todo.title.replace(" ", "")}_${currDate
-        .toLocaleString()
-        .replace(" ", "")}`;
-      todoMap.set(newTodo.id, newTodo);
-
+      todoMap.set(newTodo.id, { ...newTodo, createdAt: currDate });
       listAllTodos();
     }
   };
 
-  const onUpdateTodo = async (todo) => {
+  const onUpdateTodo = async (updatedTodo) => {
     if (session) {
-      await updateTodo({ ...todo, user: session.user.email }).then((res) =>
-        listAllTodos()
-      );
+      await updateTodo({ ...updatedTodo, user: session.user.email });
     } else {
-      todoMap.set(todo.id, todo);
+      todoMap.set(updatedTodo.id, updatedTodo);
       listAllTodos();
     }
   };
 
   const onDeleteTodos = async (idList) => {
     if (session) {
-      await deleteTodos(idList).then((res) => listAllTodos());
+      await deleteTodos(idList);
     } else {
       for (const id of idList) {
         todoMap.delete(id);
