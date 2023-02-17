@@ -4,6 +4,7 @@
   flex-direction: row;
   height: 4rem;
   border-top: 1px solid rgb(107, 114, 128, 0.096);
+  padding: 0 5rem;
 }
 
 .filterBar {
@@ -26,8 +27,8 @@
   position: absolute;
   left: 5%;
   top: 25%;
-  height: 100%;
   color: grey;
+  margin: 0 1rem;
 }
 
 .loginButton:hover {

@@ -19,6 +19,7 @@ export default function Home({ todos }) {
   // for use when user is not signed in
   useEffect(() => {
     if (session) {
+      console.log(session.user);
       listAllTodos();
     }
   }, [session]);
