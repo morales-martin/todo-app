@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -34,10 +34,13 @@ const StyledAutocomplete = styled(Autocomplete)({
   },
 });
 
-
 const LabelBar = ({ className, chips, updateEvent, label = "" }) => {
   const [barChips, setBarChips] = useState(chips);
   const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    setBarChips(chips);
+  }, [chips]);
 
   const handleChange = (e, values) => {
     setBarChips(values);
