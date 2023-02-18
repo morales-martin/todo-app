@@ -60,7 +60,7 @@ This project uses Next.JS and AWS Appsync to create a 'Todo' web platform, with 
 - **Task Status Filtering**: The task list view can be filtered by three options: "All", "Todo", and "Completed". "All" will list all tasks associated with the session / user. "Todo" will list all tasks that have not been marked as completed. "Completed" will list all tasks that have been marked as complete. Note: A task is marked as complete if its corresponding checkbox has been checked.
 - **User authentication**: Users are able to log in using their Google account. 
 - **User-authenticated saved tasks / sessions**: Once logged in, user sessions / tasks are saved to a database for later use.
-- **Real-time updates**: If a user has more than one active session, all sessions are updated with task updates.
+- **Real-time updates**: If a user has more than one active session while logged in, all sessions are updated with task updates.
 
 <!--
 Add Chord<br />
